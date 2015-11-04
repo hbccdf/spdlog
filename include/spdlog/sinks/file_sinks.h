@@ -73,7 +73,7 @@ class rotating_file_sink : public base_sink < Mutex >
 public:
     rotating_file_sink(const std::string &base_filename, const std::string &extension,
                        std::size_t max_size, std::size_t max_files,
-                       bool force_flush = false) :
+                       bool force_flush = false, bool rotate_if_exist = false) :
         _base_filename(base_filename),
         _extension(extension),
         _max_size(max_size),
@@ -81,8 +81,17 @@ public:
         _current_size(0),
         _file_helper(force_flush)
     {
-        _file_helper.open(calc_filename(_base_filename, 0, _extension));
-        _current_size = _file_helper.size(); //expensive. called only once
+        auto file_name = calc_filename(base_filename, 0, extension);
+        if (rotate_if_exist && details::file_helper::file_exists(file_name))
+        {
+            _file_helper.open(file_name);
+            _rotate();
+        }
+        else
+        {
+            _file_helper.open(file_name);
+            _current_size = _file_helper.size(); //expensive. called only once
+        }
     }
 
     void flush() override

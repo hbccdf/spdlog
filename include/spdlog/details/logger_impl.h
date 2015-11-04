@@ -336,7 +336,7 @@ inline void spdlog::logger::flush()
         sink->flush();
 }
 
-inline const std::vector<sink_ptr>& sinks() const 
+inline const std::vector<spdlog::sink_ptr>& spdlog::logger::sinks() const 
 {
     return _sinks;
 }

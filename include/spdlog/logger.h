@@ -108,6 +108,8 @@ public:
     void set_formatter(formatter_ptr);
 
     void flush();
+    
+    const std::vector<sink_ptr>& sinks() const;
 
 protected:
     virtual void _log_msg(details::log_msg&);

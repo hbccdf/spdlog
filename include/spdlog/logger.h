@@ -72,6 +72,7 @@ public:
     template <typename... Args> details::line_logger critical(const char* fmt, const Args&... args);
     template <typename... Args> details::line_logger alert(const char* fmt, const Args&... args);
     template <typename... Args> details::line_logger emerg(const char* fmt, const Args&... args);
+    template <typename... Args> details::line_logger log(level::level_enum lvl, const char* fmt, const Args&... args);
 
 
     // logger.info(msg) << ".." call style
@@ -84,6 +85,7 @@ public:
     template <typename T> details::line_logger critical(const T&);
     template <typename T> details::line_logger alert(const T&);
     template <typename T> details::line_logger emerg(const T&);
+    template <typename T> details::line_logger log(level::level_enum lvl, const T&);
 
 
     // logger.info() << ".." call  style
@@ -96,6 +98,7 @@ public:
     details::line_logger critical();
     details::line_logger alert();
     details::line_logger emerg();
+    details::line_logger log(level::level_enum lvl);
 
 
 

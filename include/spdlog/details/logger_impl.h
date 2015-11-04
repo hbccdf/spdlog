@@ -153,6 +153,12 @@ inline spdlog::details::line_logger spdlog::logger::emerg(const char* fmt, const
     return _log_if_enabled(level::emerg, fmt, args...);
 }
 
+template <typename... Args>
+inline spdlog::details::line_logger spdlog::logger::log(level::level_enum lvl, const char* fmt, const Args&... args)
+{
+    return _log_if_enabled(lvl, fmt, args...);
+}
+
 //
 // logger.info(msg) << ".." call style
 //
@@ -211,6 +217,11 @@ inline spdlog::details::line_logger spdlog::logger::emerg(const T& msg)
     return _log_if_enabled(level::emerg, msg);
 }
 
+template<typename T>
+inline spdlog::details::line_logger spdlog::logger::log(level::level_enum lvl, const T& msg)
+{
+    return _log_if_enabled(lvl, msg);
+}
 
 
 
@@ -260,6 +271,11 @@ inline spdlog::details::line_logger spdlog::logger::alert()
 inline spdlog::details::line_logger spdlog::logger::emerg()
 {
     return _log_if_enabled(level::emerg);
+}
+
+inline spdlog::details::line_logger spdlog::logger::log(level::level_enum lvl)
+{
+    return _log_if_enabled(lvl);
 }
 
 
